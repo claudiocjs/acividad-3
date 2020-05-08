@@ -1,0 +1,22 @@
+from claselistacosecha import listaCosechas
+from ClaseCosecha import Cosecha
+def opcion0(l):
+    print("Adiós")
+def opcion1(l):
+    num=int(input("ingresar numero identificador de camion (1-20): "))
+    if num>0 and num<21:
+        print("CAMION: {} TOTAL DESCARGADO: {} Kg.".format(num,l.get_cosecha(num-1).get_totalkg()))
+    else:
+        print("camion {} no se encuentra".format(num))
+    input('')
+def opcion2(m,n):
+    
+    input('')
+switcher = {
+    0: opcion0,
+    1: opcion1,
+    2: opcion2
+    }
+def switch(argument,lisc):
+    func = switcher.get(argument, lambda: print("Opción incorrecta"))
+    func(lisc)
