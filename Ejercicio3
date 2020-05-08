@@ -1,0 +1,52 @@
+from ClaseCamion import Camion
+from ClaseCosecha import Cosecha
+from clasemanejadordecamiones import ManejadorListaCamion
+from claselistacosecha import listaCosechas
+from menu import switch
+import csv
+from datetime import datetime
+from datetime import timedelta
+
+
+
+if __name__ == '__main__':
+    listacamiones=ManejadorListaCamion()
+    listacos= listaCosechas()#creo una lista de la lista bidimencional
+    filaordenada=[]
+    bandera= False
+    archivo= open('camiones.csv')
+    reader= csv.reader(archivo,delimiter=',')
+    for fila in reader:
+        print(fila)
+    for i in range(len(fila)):
+        uncamion = Camion()
+        uncamion.leerdearchivo(fila[i])
+        listacamiones.agregarcamion(uncamion)
+        unacosecha= Cosecha()#creo lista bidimencional
+        listacos.agregar_cosecha(unacosecha)#guardo una lista bidi en la lista de listas bidi
+    
+    for i in range(listacamiones.get_tamaño()):
+        print(listacamiones.get_camion(i))
+    
+    archivo= open('cosechas.csv')
+    reader= csv.reader(archivo,delimiter=',')
+    for fila in reader:
+        print(fila)
+    
+    
+    i=0
+    while i < len(fila):
+        
+        separado=fila[i].split('-')
+        kgdecarga=float(separado[2]) - listacamiones.get_camion(int(separado[0])-1).get_tara()
+        listacos.get_cosecha(int(separado[0])-1).agregarkg(kgdecarga,separado[1])
+        i+=1
+    
+    while not bandera:
+        print("MENU DE OPCIONES")
+        print("0: Salir.")
+        print("1: Dado el número de identificador de un camión mostrar, la cantidad total de kilos descargados.")
+        print("2: Dada una fecha mostrar descargas")
+        opcion= int(input("Ingrese una opción: "))
+        switch(opcion,listacos)
+        bandera = int(opcion)==0 # Si lee el 0 cambia la bandera a true y sale del menú
