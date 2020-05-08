@@ -1,0 +1,30 @@
+class Camion:
+    Numero=-1
+    NomChofer=''
+    Patente=''
+    Marca=''
+    Tara=-1.0
+    def __init__(self,num=-1,nom='',pate='',marca='',tara=-1):
+        if isinstance(num,int):
+           self.__Numero=num
+        if isinstance(nom,str):
+           self.__Nomchofer=nom
+        if isinstance(pate,str):
+           self.__Patente=pate
+        if isinstance(marca,str):
+           self.__Marca=marca
+        if isinstance(tara,float):
+           self.__Tara=tara
+    def __str__ (self):
+        return '{}: nombre:{} patente:{} marca:{} tara:{}'.format(self.__Numero,self.__Nomchofer,self.__Patente,self.__Marca,self.__Tara)
+    def get_tara(self):
+        return self.__Tara
+    def leerdearchivo(self,uncamion):
+        if isinstance(uncamion,str):
+            separador= ' '
+            separado = uncamion.split(separador)
+            self.__Numero=int(separado[0])
+            self.__Nomchofer=separado[1]
+            self.__Patente=separado[2]
+            self.__Marca=separado[3]
+            self.__Tara=float(separado[4])
