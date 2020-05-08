@@ -1,0 +1,12 @@
+from ClaseCosecha import Cosecha
+class listaCosechas:
+    __lista=[]
+    def __init__(self):
+        self.__lista=[]
+    def agregar_cosecha(self, co):
+        if isinstance(co,Cosecha):
+            self.__lista.append(co)
+    def get_cosecha(self,i):
+        if isinstance(i,int):
+            if i<len(self.__lista):
+                return self.__lista[i]
