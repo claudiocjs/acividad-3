@@ -1,0 +1,17 @@
+class ManejadorListaCamion:
+    __lista=[]
+    def __init__(self):
+        self.__lista=[]
+    def agregarcamion(self,c):
+        self.__lista.append(c)
+    def get_camion(self,i=-1):
+        if isinstance(i,int):
+            if i>-1 and i< len(self.__lista):
+                return self.__lista[i]
+            else :
+                print("indice fueraa de rango")
+    def get_tamaño(self):
+        return len(self.__lista)
+    def mostrarcamiones(self):
+        for cam in self.__lista:
+            print(cam)
