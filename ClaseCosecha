@@ -1,0 +1,53 @@
+from datetime import datetime
+from datetime import timedelta
+
+class Cosecha:
+    __Listadoble=[]
+    def __init__(self):
+        kg=0.0
+        dia = datetime(2020,1,31)
+        self.__Listadoble=[]
+        for i in range(2):
+            self.__Listadoble.append([])
+            for j in range(45):
+                if i==0:
+                    dia += timedelta(days=1)
+                    self.__Listadoble[i].append(dia)
+                else:
+                    self.__Listadoble[i].append(kg)
+                
+    def __str__(self):
+        for i in range(45):
+            return 'idcamion:{} fecha:{} kg:{}'.format(i+1,self.__Listadoble[0][i],self.__Listadoble[1][i])
+    
+    def leerdearchivo(self,sepa,listcam):
+        if int(sepa[0])>0:
+            sepa[0]=int(sepa[0])
+            sepa[1]= datetime.strptime(sepa[1],'%d/%m/%Y')
+            sepa[2]=float(sepa[2])
+            sepa[2] -= listcam.get_camion(sepa[0]-1).get_tara() 
+        else:
+            print("identificador de camion fuera de limites esperados")
+        self.__id=sepa[0]
+        if isinstance(sepa[1],datetime):
+            indice= self.__Listadoble[0].index(sepa[1])
+            if indice>-1 and indice<45:
+                if isinstance(sepa[2],float):
+                    self.__Listadoble[1][indice]=sepa[2]
+    def agregarkg(self,kg=0.0,fe=''):
+        if isinstance(kg,float) and isinstance(fe,str):
+            if fe != '':
+                dia= datetime.strptime(fe, "%d/%m/%Y")
+                i=0
+                while i < 45 and self.__Listadoble[0][i] != dia:
+                    i+=1
+                if i < 45:
+                    self.__Listadoble[1][i] +=kg
+                else:
+                    print("la fecha: {} no existe en el periodo de cosecha".format(fe))
+    
+    def get_totalkg(self):
+        tot=0.0
+        for i in range(45):
+            tot +=self.__Listadoble[1][i]
+        return tot
